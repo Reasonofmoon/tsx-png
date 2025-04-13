@@ -1,0 +1,13 @@
+{
+  "builds": [{
+    "src": "package.json",
+    "use": "@vercel/next"
+  }],
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "functions": {
+    "api/**": {
+      "runtime": "nodejs18.x"
+    }
+  }
+} 
