@@ -98,7 +98,7 @@ export default function TsxToPdfPage() {
     const validation = validateCode(code)
 
     if (!validation.isValid) {
-      setError(validation.error)
+      setError(validation.error || null)
       setPreviewReady(false)
       return
     }
@@ -176,7 +176,7 @@ export default function TsxToPdfPage() {
     }
   }
 
-  const updatePrintSettings = (settings) => {
+  const updatePrintSettings = (settings: { pageSize: string; orientation: string; margins: string; scale: number }) => {
     setPrintSettings(settings)
   }
 

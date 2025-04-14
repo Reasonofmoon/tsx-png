@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
+  Cell,
 } from "recharts"
 import { TrendingUp, DollarSign, Users, FileText, ArrowUpRight, ArrowDownRight } from "lucide-react"
 
@@ -131,7 +132,7 @@ const FinancialPlan = () => {
                 <Tooltip formatter={(value) => [`${value} 억원`, "금액"]} />
                 <Bar dataKey="value" name="금액(억원)">
                   {initialCostData.map((entry, index) => (
-                    <Bar key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Bar>
               </BarChart>
@@ -157,7 +158,7 @@ const FinancialPlan = () => {
                 <Tooltip formatter={(value) => [`${value} 억원`, "금액"]} />
                 <Bar dataKey="value" name="금액(억원)">
                   {monthlyOperationCostData.map((entry, index) => (
-                    <Bar key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Bar>
               </BarChart>

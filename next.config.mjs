@@ -7,7 +7,7 @@ const nextConfig = {
     // 앱 라우터에서 서버 컴포넌트 사용
     serverComponents: true,
     // 클라이언트 컴포넌트 사용
-    serverActions: true,
+    serverActions: {},
   },
   
   // 웹팩 구성 추가

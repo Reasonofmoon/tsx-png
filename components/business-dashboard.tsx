@@ -2,8 +2,16 @@
 
 import { useState } from "react"
 import { ChevronRight, BarChart2, Users, Heart, Shield, TrendingUp, Clock } from "lucide-react"
+import React from 'react'
 
-const DashboardTab = ({ icon, title, active, onClick }) => {
+interface DashboardTabProps {
+  icon: React.ReactNode;
+  title: string;
+  active: boolean;
+  onClick: () => void;
+}
+
+const DashboardTab = ({ icon, title, active, onClick }: DashboardTabProps) => {
   return (
     <div
       className={`flex items-center p-3 cursor-pointer transition-colors duration-200 ${

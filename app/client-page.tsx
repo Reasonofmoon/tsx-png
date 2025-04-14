@@ -35,6 +35,8 @@ const PrintSettingsDialog = dynamic(() => import("@/components/print-settings-di
   ssr: false,
 })
 
+const ReactToPrintAny: any = ReactToPrint;
+
 export default function ClientPage() {
   const [code, setCode] = useState<string>("")
   const [error, setError] = useState<string | null>(null)
@@ -88,7 +90,7 @@ export default function ClientPage() {
     const validation = validateCode(code)
 
     if (!validation.isValid) {
-      setError(validation.error)
+      setError(validation.error || null)
       setPreviewReady(false)
       return
     }
@@ -164,7 +166,7 @@ export default function ClientPage() {
     })
   }
 
-  const updatePrintSettings = (settings) => {
+  const updatePrintSettings = (settings: { pageSize: string, orientation: string, margins: string, scale: number }) => {
     setPrintSettings(settings)
   }
 
@@ -259,7 +261,7 @@ export default function ClientPage() {
             <span>Preview Component</span>
           </Button>
 
-          <ReactToPrint
+          <ReactToPrintAny
             trigger={() => (
               <Button variant="outline" className="flex items-center gap-2" disabled={!code.trim()}>
                 <FileDown className="h-4 w-4" />

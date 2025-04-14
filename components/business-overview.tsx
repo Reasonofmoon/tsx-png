@@ -1,9 +1,9 @@
-import { CircleCheck, Users, Coins, Heart } from "lucide-react"
+import { FileCheck, Users, Coins, Heart } from "lucide-react"
 
 const BusinessOverview = () => {
   const coreValues = [
     {
-      icon: <CircleCheck size={48} className="text-pink-600" />,
+      icon: <FileCheck size={48} className="text-pink-600" />,
       title: "신뢰도",
       description: "교사 범죄이력 조회·대면 면접·성인지 교육 필수",
       color: "bg-pink-100",

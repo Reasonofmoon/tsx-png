@@ -10,7 +10,7 @@ import { createMockRecharts, createIconProxy } from "./mock-components"
 
 interface CodePreviewProps {
   code: string
-  onError?: (error: string) => void
+  onError?: (error: string | null) => void
 }
 
 export default function CodePreview({ code, onError }: CodePreviewProps) {
@@ -66,7 +66,7 @@ export default function CodePreview({ code, onError }: CodePreviewProps) {
             }).code
           } catch (transformError) {
             console.error("Babel 변환 오류:", transformError)
-            throw new Error(`코드 변환 오류: ${transformError.message || "알 수 없는 오류"}`)
+            throw new Error(`코드 변환 오류: ${(transformError instanceof Error ? transformError.message : "알 수 없는 오류")}`)
           }
 
           // 컴포넌트를 반환하는 함수 생성
@@ -167,7 +167,7 @@ export default function CodePreview({ code, onError }: CodePreviewProps) {
             return createComponentFn(React, LucideIcons, createMockRecharts, createIconProxy)
           } catch (executionError) {
             console.error("함수 실행 오류:", executionError)
-            throw new Error(`컴포넌트 실행 오류: ${executionError.message || "알 수 없는 오류"}`)
+            throw new Error(`컴포넌트 실행 오류: ${(executionError instanceof Error ? executionError.message : "알 수 없는 오류")}`)
           }
         } catch (innerError) {
           console.error("내부 렌더링 오류:", innerError)

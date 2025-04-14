@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast"
 import html2canvas from "html2canvas"
 
 interface PngRendererProps {
-  contentRef: React.RefObject<HTMLDivElement>
+  contentRef: React.RefObject<HTMLDivElement | null>
   fileName: string
 }
 

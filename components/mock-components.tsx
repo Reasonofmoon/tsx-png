@@ -3,7 +3,7 @@ import React from "react"
 // Recharts 컴포넌트 모의 생성
 export const createMockRecharts = () => {
   // 기본 모의 컴포넌트 팩토리 생성
-  const createMockComponent = (name) => (props) => {
+  const createMockComponent = (name: string) => (props: any) => {
     try {
       return React.createElement(
         "div",
@@ -42,7 +42,7 @@ export const createMockRecharts = () => {
     CartesianGrid: createMockComponent("CartesianGrid"),
     Tooltip: createMockComponent("Tooltip"),
     Legend: createMockComponent("Legend"),
-    ResponsiveContainer: (props) => {
+    ResponsiveContainer: (props: any) => {
       try {
         return React.createElement(
           "div",
@@ -82,7 +82,7 @@ export const createMockRecharts = () => {
 }
 
 // 모의 아이콘 컴포넌트 팩토리 생성
-export const createIconProxy = (LucideIcons) => {
+export const createIconProxy = (LucideIcons: Record<string, any>) => {
   // 자주 사용되는 아이콘 목록 - 이 목록에 없는 아이콘도 프록시를 통해 처리됨
   const commonIcons = [
     "Users",
@@ -122,26 +122,22 @@ export const createIconProxy = (LucideIcons) => {
   ]
 
   // 모든 Lucide 아이콘에 대한 프록시 생성
-  const iconCache = {}
+  const iconCache: Record<string, any> = {}
 
   return new Proxy(
     {},
     {
       get: (target, prop) => {
-        // 이미 캐시된 아이콘이 있으면 반환
-        if (iconCache[prop]) {
-          return iconCache[prop]
+        const key = String(prop)
+        if (iconCache[key]) {
+          return iconCache[key]
         }
-
         try {
-          // 아이콘이 LucideIcons에 존재하면 캐시하고 반환
-          if (prop in LucideIcons) {
-            iconCache[prop] = LucideIcons[prop]
-            return iconCache[prop]
+          if (key in LucideIcons) {
+            iconCache[key] = LucideIcons[key]
+            return iconCache[key]
           }
-
-          // 그렇지 않으면 대체 아이콘 컴포넌트 생성 및 캐시
-          const fallbackIcon = (props) => {
+          const fallbackIcon = (props: any) => {
             try {
               return React.createElement(
                 "div",
@@ -161,15 +157,14 @@ export const createIconProxy = (LucideIcons) => {
                     lineHeight: props.size || "24px",
                     border: "1px dashed #ccc",
                   },
-                  title: `Icon: ${String(prop)}`,
-                  "data-icon": String(prop),
-                  "aria-label": `Icon placeholder for ${String(prop)}`,
+                  title: `Icon: ${key}`,
+                  "data-icon": key,
+                  "aria-label": `Icon placeholder for ${key}`,
                 },
                 typeof prop === "string" ? prop.toString().slice(0, 3) : "ico",
               )
             } catch (renderError) {
-              console.error(`Error rendering fallback icon for ${String(prop)}:`, renderError)
-              // 최후의 대체 아이콘 - 절대 실패하지 않아야 함
+              console.error(`Error rendering fallback icon for ${key}:`, renderError)
               return React.createElement(
                 "span",
                 {
@@ -186,16 +181,14 @@ export const createIconProxy = (LucideIcons) => {
                     borderRadius: "4px",
                   },
                 },
-                "!",
+                "!"
               )
             }
           }
-
-          iconCache[prop] = fallbackIcon
+          iconCache[key] = fallbackIcon
           return fallbackIcon
         } catch (error) {
-          console.error(`Error in icon proxy for ${String(prop)}:`, error)
-          // 오류 발생 시 절대 실패하지 않는 대체 아이콘 반환
+          console.error(`Error in icon proxy for ${key}:`, error)
           return () =>
             React.createElement(
               "span",
@@ -213,7 +206,7 @@ export const createIconProxy = (LucideIcons) => {
                   borderRadius: "4px",
                 },
               },
-              "!",
+              "!"
             )
         }
       },

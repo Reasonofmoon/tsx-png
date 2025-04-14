@@ -8,7 +8,7 @@ import { FileDown, Loader2 } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 
 interface PDFRendererProps {
-  contentRef: React.RefObject<HTMLDivElement>
+  contentRef: React.RefObject<HTMLDivElement | null>
   fileName: string
   printSettings: {
     pageSize: string
